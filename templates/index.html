@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classifier Iris flower</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+  .img-iris img {
+    width: 90%;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="img-iris col-md-6">
+        <h1>There are 3 type of Iris flower</h1>
+        <img src="https://miro.medium.com/max/1400/1*nfK3vGZkTa4GrO7yWpcS-Q.png" alt="">
+      </div>
+      <div class="predict-iris col-md-6">
+        <form>
+          <h5>Enter 4 feature of iris flower to predict type of it</h5>
+          <label for="input1">Sepal width</label>
+          <input type="text" class="form-control" id="input1" placeholder="Sepal width" value="5.1">
+
+          <label for="input2">Sepal length</label>
+          <input type="text" class="form-control" id="input2" placeholder="Sepal length" value="3.4">
+
+          <label for="input3">Petal width</label>
+          <input type="text" class="form-control" id="input3" placeholder="Petal width" value="1.4">
+
+          <label for="input4">Petal length</label>
+          <input type="text" class="form-control" id="input4" placeholder="Petal length" value="0.3">
+          <button id="predict" type="button" class="btn btn-primary">Click to predict type of Iris flower</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var sepal_length = $("#input1").val();
+  var sepal_width = $("#input2").val();
+  var petal_length = $("#input3").val();
+  var petal_width = $("#input4").val();
+  url = 'http://127.0.0.1:5000/predict_iris' + '?sepal_length=' + sepal_length + '&sepal_width=' + sepal_width + '&petal_length=' + petal_length + '&petal_width=' + petal_width;
+  $("#predict").click(function () {
+    
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json', // added data type
+        success: function(res) {
+          Swal.fire('Predict class: ' + res.result)
+        }
+    });
+
+  });
+</script>
+
+</html>
