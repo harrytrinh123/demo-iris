@@ -30,3 +30,4 @@ def predict_iris(sepal_length, sepal_width, petal_length, petal_width):
 if __name__ == "__main__":
     app.run(debug=True)
     print(predict_iris(1, 2, 3, 4))
+    print('hellow world')
